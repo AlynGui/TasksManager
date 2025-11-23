@@ -67,11 +67,11 @@ TasksManager/
 
 **Home Page**
 
-[Home Page](public/screenshots/home.png)
+[Home Page](public/home.png)
 
 **Task Detail Page**
 
-[Task Detail](public/screenshots/task-detail.png)
+[Task Detail](public/task-detail.png)
 
 ---
 
@@ -83,12 +83,12 @@ cd TasksManager
 
 2.Install dependencies:
 npm install
-# or
+or
 yarn
 
 3.Run locally:
 npm run dev
-# or
+or
 yarn dev
 
 Open http://localhost:5173 in your browser
