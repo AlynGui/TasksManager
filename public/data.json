@@ -1,0 +1,100 @@
+{
+  "tasks": [
+    {
+      "id": "d001",
+      "title": "Commute to office",
+      "description": "Arrive at the office on time",
+      "status": "completed",
+      "assignee": "Alex",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "d002",
+      "title": "Morning email check",
+      "description": "Respond to urgent client emails",
+      "status": "completed",
+      "assignee": "Emily",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "d003",
+      "title": "Team stand-up meeting",
+      "description": "Daily sync with the development team",
+      "status": "completed",
+      "assignee": "Jason",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "d004",
+      "title": "Implement dashboard filter",
+      "description": "Add filtering by status and assignee",
+      "status": "in_progress",
+      "assignee": "Alex",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "d005",
+      "title": "Fix login API bug",
+      "description": "Investigate 500 error on login endpoint",
+      "status": "in_progress",
+      "assignee": "Michael",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "d006",
+      "title": "Prepare weekly report",
+      "description": "Summarize progress for managers",
+      "status": "not_started",
+      "assignee": "Sophie",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "d007",
+      "title": "Leave office",
+      "description": "Clock out and head home",
+      "status": "completed",
+      "assignee": "Jason",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "d008",
+      "title": "Pick up groceries",
+      "description": "Buy vegetables and snacks",
+      "status": "not_started",
+      "assignee": "Linda",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "d009",
+      "title": "Workout session",
+      "description": "30-minute gym or home workout",
+      "status": "not_started",
+      "assignee": "Chris",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "d010",
+      "title": "Plan tomorrow's tasks",
+      "description": "Define priorities for next workday",
+      "status": "not_started",
+      "assignee": "Emily",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "cc15",
+      "title": "Test",
+      "description": "Test add a new task.",
+      "status": "not_started",
+      "assignee": "Alyn",
+      "dueDate": "2025-11-22"
+    },
+    {
+      "id": "298d",
+      "title": "Test",
+      "description": "Test Test Test Test Test ",
+      "status": "in_progress",
+      "assignee": "Alyn",
+      "dueDate": "2025-11-22"
+    }
+  ]
+}
