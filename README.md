@@ -77,7 +77,7 @@ TasksManager/
 
 ## Installation
 
-1. Clone the repository:
+1.Clone the repository:
 git clone git@github.com:AlynGui/TasksManager.git
 cd TasksManager
 
