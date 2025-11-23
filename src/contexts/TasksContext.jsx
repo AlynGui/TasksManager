@@ -13,7 +13,8 @@ export const TasksProvider = ({ children }) => {
 
         getAllTasks(controller.signal)
         .then(data => {
-            setTasks(data);
+            // setTasks(data);
+            setTasks(data.tasks);    // vercel data structure
         })
         .catch(err => { 
             setError(err.message);

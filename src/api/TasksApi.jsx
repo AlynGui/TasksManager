@@ -17,7 +17,8 @@ const handleResponse = async (response) => {
  */
 export const getAllTasks = async (signal) => {
     try {
-        const response = await fetch(config.API_BASE_URL + config.ENDPOINTS.TASKS_LIST, { signal });
+        // const response = await fetch(config.API_BASE_URL + config.ENDPOINTS.TASKS_LIST, { signal });
+        const response = await fetch(config.VERCEL_FETCH_DATA, { signal });
         return await handleResponse(response);
     } catch (error) {
         if (error.name === 'AbortError') {

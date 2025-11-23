@@ -10,6 +10,9 @@ const config = {
         TASKS_DETAIL: '/tasks',    // + '/:id'
         TASKS_DELETE: '/tasks',    // + '/:id'
         TASKS_UPDATE: '/tasks',    // + '/:id'
-    }
+    },
+
+    //vercel  fetch 
+    VERCEL_FETCH_DATA: '/data.json',
 }
 export default config;
