@@ -17,7 +17,7 @@ model Task {
   id          Int        @id @default(autoincrement())
   title       String
   description String
-  status      TaskStatus @default(not_started)
+  status      TaskStatus @default(NOT_STARTED)
   assignee    String
   dueDate     DateTime
   createdDate DateTime   @default(now())
