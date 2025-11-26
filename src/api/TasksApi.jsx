@@ -1,6 +1,8 @@
 
 import config from '../config/api.js';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 // Handles fetch API responses, throwing an error if the response is not OK, otherwise returning the parsed JSON.
 const handleResponse = async (response) => {
     if (!response.ok) {
@@ -17,8 +19,10 @@ const handleResponse = async (response) => {
  */
 export const getAllTasks = async (signal) => {
     try {
-        // const response = await fetch(config.API_BASE_URL + config.ENDPOINTS.TASKS_LIST, { signal });
-        const response = await fetch(config.VERCEL_FETCH_DATA, { signal });
+        const response = await fetch(API_BASE_URL + config.ENDPOINTS.TASKS_LIST, { 
+            credentials: 'include',
+            signal 
+        });
         return await handleResponse(response);
     } catch (error) {
         if (error.name === 'AbortError') {
@@ -35,12 +39,13 @@ export const getAllTasks = async (signal) => {
  * @returns {Promise<Object>} The created task object from the server response.
  */
 export const addTask = async (taskData) => {
-    const response = await fetch(config.API_BASE_URL + config.ENDPOINTS.TASKS_ADD, {
+    const response = await fetch(API_BASE_URL + config.ENDPOINTS.TASKS_ADD, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(taskData),
+        credentials: 'include'
     });
     return await handleResponse(response);
 };
@@ -52,12 +57,14 @@ export const addTask = async (taskData) => {
  * @returns {Promise<Object>} The updated task object from the server response.
  */
 export const updateTask = async (id, taskData) => {
-    const response = await fetch(`${config.API_BASE_URL + config.ENDPOINTS.TASKS_UPDATE}/${id}`, {
+    const response = await fetch(`${API_BASE_URL + config.ENDPOINTS.TASKS_UPDATE}/${id}`, {
         method: 'PATCH',
+        
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(taskData),
+        credentials: 'include'
     });
     return await handleResponse(response);
 };
@@ -68,8 +75,9 @@ export const updateTask = async (id, taskData) => {
  * @returns {Promise<Object>} The server response after deletion.
  */
 export const deleteTask = async (id) => {
-    const response = await fetch(`${config.API_BASE_URL}${config.ENDPOINTS.TASKS_DELETE}/${id}`, {
+    const response = await fetch(`${API_BASE_URL}${config.ENDPOINTS.TASKS_DELETE}/${id}`, {
         method: 'DELETE',
+        credentials: 'include'
     });
     return await handleResponse(response);
 };

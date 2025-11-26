@@ -1,7 +1,5 @@
 
 const config = {
-    //api base url
-    API_BASE_URL: 'http://localhost:3001',
 
     //the api endpoints
     ENDPOINTS: {
@@ -12,7 +10,5 @@ const config = {
         TASKS_UPDATE: '/tasks',    // + '/:id'
     },
 
-    //vercel  fetch 
-    VERCEL_FETCH_DATA: '/data.json',
 }
 export default config;

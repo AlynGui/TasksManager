@@ -8,11 +8,11 @@ export default function TaskList({tasks}) {
 
     const getStatusColor = (status) => {
         switch(status) {
-            case 'not_started':
+            case 'NOT_STARTED':
                 return 'bg-gray-100 text-gray-800 border-gray-300';
-            case 'in_progress':
+            case 'IN_PROGRESS':
                 return 'bg-yellow-100 text-yellow-800 border-yellow-300';
-            case 'completed':
+            case 'COMPLETED':
                 return 'bg-green-100 text-green-800 border-green-300';
             default:
                 return 'bg-gray-100 text-gray-800';
@@ -21,9 +21,9 @@ export default function TaskList({tasks}) {
 
     const getStatusLabel = (status) => {
         const labels = {
-            'not_started': 'Not Started',
-            'in_progress': 'In Progress',
-            'completed': 'Completed'
+            'NOT_STARTED': 'Not Started',
+            'IN_PROGRESS': 'In Progress',
+            'COMPLETED': 'Completed'
         };
         return labels[status] || status;
     };
@@ -81,9 +81,9 @@ export default function TaskList({tasks}) {
                                         onChange={(e) => toggleStatus(task.id, e.target.value)}
                                         className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                                     >
-                                        <option value="not_started">Not Started</option>
-                                        <option value="in_progress">In Progress</option>
-                                        <option value="completed">Completed</option>
+                                        <option value="NOT_STARTED">Not Started</option>
+                                        <option value="IN_PROGRESS">In Progress</option>
+                                        <option value="COMPLETED">Completed</option>
                                     </select>
                                 </div>
                                 <button 

@@ -2,9 +2,9 @@
 export default function TasksFilter({ setFilter, query, setQuery, filter = 'all' }) {
   const filterOptions = [
     { label: 'All', value: 'all' },
-    { label: 'Not Started', value: 'not_started' },
-    { label: 'In Progress', value: 'in_progress' },
-    { label: 'Completed', value: 'completed' }
+    { label: 'Not Started', value: 'NOT_STARTED' },
+    { label: 'In Progress', value: 'IN_PROGRESS' },
+    { label: 'Completed', value: 'COMPLETED' }
   ];
 
   return (

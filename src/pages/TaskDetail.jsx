@@ -11,7 +11,8 @@ export default function TaskDetail() {
 
     useEffect(() => {
         const getTaskById = (taskId) => {
-            return tasks.find(t => t.id === taskId);
+            // Convert taskId to number to match the type from server
+            return tasks.find(t => t.id === parseInt(taskId));
         }
         setTask(getTaskById(id));
     }, [tasks, id]);
@@ -68,9 +69,9 @@ export default function TaskDetail() {
                                     onChange={handleOnChangeStatus}
                                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-slate-50"
                                 >
-                                    <option value="not_started">Not Started</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="completed">Completed</option>
+                                    <option value="NOT_STARTED">Not Started</option>
+                                    <option value="IN_PROGRESS">In Progress</option>
+                                    <option value="COMPLETED">Completed</option>
                                 </select>
                             </div>
                             <button 
