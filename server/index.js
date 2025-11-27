@@ -9,8 +9,7 @@ const app = express();
 
 app.use(cors({
   origin: [
-     process.env.FRONTEND_PRODUCTION_URL, 
-     process.env.FRONTEND_DEVELOPMENT_URL 
+     process.env.FRONTEND_URL
     ],
   credentials: true
 }));
