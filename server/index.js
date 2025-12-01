@@ -25,8 +25,9 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// app.use('/user', authRoutes);
-// app.use('/tasks', authMiddleware, taskRoutes);
+// Routes
+app.use('/user', authRoutes);
+app.use('/tasks', authMiddleware, taskRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
