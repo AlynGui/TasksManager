@@ -14,8 +14,10 @@ app.use(cors({
   origin: [
     process.env.FRONTEND_URL
   ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
+app.options('*', cors());
 
 app.use(express.json());  //JSON body parser
 app.use(cookieParser());  //Cookie parser
@@ -27,8 +29,8 @@ app.get('/health', (req, res) => {
 app.use('/user', authRoutes);
 app.use('/tasks', authMiddleware, taskRoutes);
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
