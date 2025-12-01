@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
-import { getAllTasks, deleteTask, updateTask, addTask } from '../api/TasksApi.jsx';
+import * as TasksApi from '../api/TasksApi.jsx';
+import useAuth from '../hooks/useAuth.jsx';
 
 export const TasksContext = createContext();
 
@@ -7,61 +8,114 @@ export const TasksProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [tasks, setTasks] = useState([]);
+    const { user } = useAuth();
 
+    // Fetch tasks when user changes
     useEffect(() => {
+        // Only fetch tasks if user is logged in
+        if (!user) {
+            setLoading(false);
+            setTasks([]);
+            return;
+        }
+
         const controller = new AbortController();
 
-        getAllTasks(controller.signal)
-        .then(data => {
-            setTasks(data);
-        })
-        .catch(err => { 
-            setError(err.message);
-        })
-        .finally(() => setLoading(false));
+        const fetchTasks = async (controller) => {
+            setLoading(true);
+            setError(null);
+            try {
+                const data = await TasksApi.getCurrentUserTasks(controller.signal);
+                if (!controller.signal.aborted) {
+                    setTasks(data);
+                }
+            } catch (err) {
+                if (err.name !== 'AbortError' && !controller.signal.aborted) {
+                    setError(err.message);
+                    throw err;
+                }
+            } finally {
+                if (!controller.signal.aborted) {
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchTasks(controller);
 
         return () => controller.abort();
-    }, []);
+    }, [user]);
 
-    const deleteTaskById = (id) => {
-        deleteTask(id)
-        .then(() => {     
+    // Delete task by ID
+    const deleteTaskById = async (id) => {
+        setError(null);
+        setLoading(true);
+        try {
+            await TasksApi.deleteTaskById(id);
             setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
-        })
-        .catch(err => {
+        } catch (err) {
             setError(err.message);
-        });
+            throw err;
+        } finally {
+            setLoading(false);
+        }
     }
 
-    const toggleStatus = (id, newStatus) => {
-        
-        updateTask(id, { status: newStatus })
-        .then(() => {
-            setTasks(prevTasks => 
-                prevTasks.map(task => 
-                    task.id === id ? { ...task, status: newStatus } : task
-                )
-            );
-        })
-        .catch(err => {
+    // Toggle task status
+    const toggleStatus = async (id, newStatus) => {
+        setError(null);
+        setLoading(true);
+        try {
+            await TasksApi.updateTaskStatusById(id, { status: newStatus });
+            setTasks(prevTasks => prevTasks.map(task =>
+                task.id === id ? { ...task, status: newStatus } : task
+            ));
+        } catch (err) {
             setError(err.message);
-        });
+            throw err;
+        } finally {
+            setLoading(false);
+        }
     }
 
-    const addNewTask = (taskData) => {
-        addTask(taskData)
-        .then((newTask) => {
+    // Toggle task status
+    const updateTaskById = async (id, updatedData) => {
+        setError(null);
+        setLoading(true);
+        try {
+            await TasksApi.updateTaskById(id, updatedData);
+            setTasks(prevTasks => prevTasks.map(task =>
+                task.id === id ? { ...task, ...updatedData } : task
+            ));
+        } catch (err) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Add new task
+    const addNewTask = async (taskData) => {
+        setError(null);
+        setLoading(true);
+        try {
+            const newTask = await TasksApi.addTask(taskData);
             setTasks(prevTasks => [...prevTasks, newTask]);
-        })
-        .catch(err => {
+            return newTask;
+        } catch (err) {
             setError(err.message);
-        });
+            throw err;
+        } finally {
+            setLoading(false);
+        }
     }
-    const value = { tasks, loading, error, deleteTaskById, toggleStatus, addNewTask };
+
+    const value = { tasks, loading, error, deleteTaskById, toggleStatus, updateTaskById, addNewTask };
 
     return (
-    <TasksContext.Provider value={value}>
-        {children}
-    </TasksContext.Provider>
+        <TasksContext.Provider value={value}>
+            {children}
+        </TasksContext.Provider>
     )
 }

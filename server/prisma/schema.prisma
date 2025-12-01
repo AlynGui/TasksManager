@@ -18,7 +18,15 @@ model Task {
   title       String
   description String
   status      TaskStatus @default(NOT_STARTED)
-  assignee    String
-  dueDate     DateTime
+  dueDate     DateTime   @db.Date
   createdDate DateTime   @default(now())
+  userId      Int        @default(0)
+}
+
+model User {
+  id           Int     @id @default(autoincrement())
+  username     String  
+  email        String  @unique
+  password     String
+  createdDate   DateTime @default(now())
 }
