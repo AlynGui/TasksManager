@@ -1,37 +1,47 @@
-# ✅ TasksManager
+# TasksManager
 
-A simple yet practical **Task Management Web Application** built with **React + Vite + TailwindCSS + Node.js + Prisma + PostgreSQL**.
-
-It supports full **CRUD operations** (Create, Read, Update, Delete) and allows users to efficiently manage daily work and personal tasks.
+A full-stack Task Management Web Application built with React, Vite, TailwindCSS, Node.js, Express, Prisma, and PostgreSQL.
+Supports authentication, CRUD tasks, filtering, search, and drag-and-drop interface.
 
 ---
 
 ## 🌍 Live Demo
 
 * ✅ Frontend (Vercel): [https://tasks-manager-eight.vercel.app/](https://tasks-manager-eight.vercel.app/)
-* ✅ Backend (Railway): [https://tasksmanager-production-1bab.up.railway.app/tasks](https://tasksmanager-production-1bab.up.railway.app/tasks)
+* ✅ Backend (Railway): [https://tasksmanager-production-1bab.up.railway.app/health](https://tasksmanager-production-1bab.up.railway.app/health)
 
 ---
 
 ## ✨ Features
-
-* Display tasks with:
-
-  * Title
-  * Description
-  * Status
-  * Due Date
-  * Assignee
-* Filter tasks by:
-
-  * Status (`not_started`, `in_progress`, `completed`)
-  * Search query (title / description / assignee)
-* Add new tasks
-* Update task status
-* Delete tasks
-* Responsive UI using **TailwindCSS**
-* Global state management via **React Context API**
-* RESTful API powered by **Node.js + Prisma + PostgreSQL**
+* Authentication:
+  * Register
+  * Login
+  * Logout
+  * Forgot Password
+  * Reset Password
+  * JWT Auth + HttpOnly Cookies
+  * Protected Routes
+* Task Management
+  * Create, Read, Update, Delete
+  * Task detail view
+  * Update task status
+  * Search by title/description
+  * Filter by status
+  * Due dates
+  * Pagination
+  * Drag-and-drop board view
+* Frontend
+  * React + Vite
+  * TailwindCSS
+  * React Router
+  * Context API
+* Backend
+  * Node.js
+  * Express
+  * Prisma ORM
+  * PostgreSQL
+  * CORS
+  * REST API
 
 ---
 
@@ -43,12 +53,15 @@ It supports full **CRUD operations** (Create, Read, Update, Delete) and allows u
 * Vite
 * TailwindCSS 4.1.17
 * React Router
+* Context
 
 ### Backend
 
-* Node.js (Express)
+* Node.js 
 * Prisma 4.16.2
 * PostgreSQL
+* Express
+* Cors
 
 ---
 
@@ -59,25 +72,44 @@ It supports full **CRUD operations** (Create, Read, Update, Delete) and allows u
 ```
 TasksManager/
 ├─ public/
-│ ├─ home.png           # Home page screenshot
-│ └─ task-detail.png    # Task detail screenshot
+│ ├─ login.png            # Login page screenshot
+│ ├─ home1.png            # Home page(Grid) screenshot
+│ ├─ home2.png            # Home page(Board) screenshot
+│ ├─ add-task.png         # Add task page screenshot
+│ └─ task-detail.png      # Task detail screenshot
 ├─ src/
-│ ├─ api/
-│ │ └─ TasksApi.jsx     # API service layer
+│ ├─ api/                 # API service layer
+│ │ ├─ AuthApi.jsx        # User request  api  (login, register, forgotPassword, logout, getCurrentUser)
+│ │ └─ TasksApi.jsx       # Task request api (getCurrentUserTasks, addTask, updateTaskById, updateTaskStatusById...)
+│ ├─ assets/              # image,svg
 │ ├─ components/
-│ │ ├─ Header.jsx
-│ │ ├─ TaskList.jsx
-│ │ └─ TasksFilter.jsx
+│ │ ├─ Header.jsx         #header component
+│ │ ├─ TaskList.jsx       #task list component, support pagination
+│ │ ├─ TaskDragList.jsx   #task list component, support drag task
+│ │ └─ TasksFilter.jsx    #filter component, filter by task status, search by task title and description
 │ ├─ config/
-│ │ └─ api.js           # API base URL config
+│ │ └─ api.js             # API base URL endpoints
 │ ├─ contexts/
-│ │ └─ TasksContext.jsx # Global state
+│ │ ├─ AuthContext.jsx    #user global state Authentication
+│ │ └─ TasksContext.jsx   #task Global state
 │ ├─ hooks/
-│ │ └─ useTasks.js      # Custom hook wrapping context
+│ │ ├─ useAuth.jsx        # return AuthContext
+│ │ └─ useTasks.js        # return TasksContext
+│ ├─ layout/
+│ │ └─ Layout.js          # layout for home page, add task page and task detail page
 │ ├─ pages/
 │ │ ├─ AddTask.jsx
+│ │ ├─ ForgotPassword.jsx
 │ │ ├─ Home.jsx
+│ │ ├─ Login.jsx
+│ │ ├─ Register.jsx
 │ │ └─ TaskDetail.jsx
+│ ├─ routes/
+│ │ └─ ProtectedRoute.js  #ProtectedRoute component to guard routes that require authentication
+│ ├─ utils/               #Utility function
+│   ├─ common.jsx
+│   ├─ request.jsx        #Utility function to make API requests with error handling
+│   └─ validate.jsx
 ├─ App.jsx
 ├─ main.jsx
 ├─ index.html
@@ -92,14 +124,21 @@ TasksManager/
 
 ```
 TasksManager/server/
-├─ controllers/
+├─ controllers/             # controller layer
+│ ├─ authController.jsx
 │ └─ taskController.js
+├─ middlewares/
+│ └─ authMiddleware.js      # Authentication middleware to protect routes
 ├─ prisma/
-│ └─ schema.prisma
+│ └─ schema.prisma          #postgreSql table structure
 ├─ routes/
-│ └─ taskRoutes.js
-├─ services/
+│ ├─ authRoutes.jsx         #/user request route
+│ └─ taskRoutes.js          #/task request route
+├─ services/                #service layer
+│ ├─ authService.jsx
 │ └─ taskService.js
+├─ utils/
+│ └─ responseHandlers.prisma  #success response and error response
 ├─ index.js
 ├─ package.json
 └─ package-lock.json
@@ -109,9 +148,21 @@ TasksManager/server/
 
 ## 🖼 Screenshots
 
-### Home Page
+### Login Page
 
-![Home Page](public/home.png)
+![Login Page](public/login.png)
+
+### Home Page(Grid)
+
+![Home Page](public/home1.png)
+
+### Home Page(Board)
+
+![Home Page](public/home2.png)
+
+### Add Task Page
+
+![Task Detail](public/add-task.png)
 
 ### Task Detail Page
 
@@ -174,6 +225,9 @@ vim .env
 ```env
 DATABASE_URL=postgresql://user:password@host:port/database?schema=public
 FRONTEND_URL=http://localhost:5173
+NODE_ENV=development
+JWT_SECRET=JWTSecretKey
+JWT_EXPIRES=1d
 ```
 
 3. Run database migration:
@@ -234,12 +288,15 @@ VITE_API_BASE_URL=https://tasksmanager-production-1bab.up.railway.app
 ```
 DATABASE_URL=<Railway PostgreSQL URL>
 FRONTEND_URL=https://tasks-manager-eight.vercel.app
+NODE_ENV=production
+JWT_SECRET=JWTSecretKey
+JWT_EXPIRES=1d
 ```
 
 5. Deploy
 
 Backend URL:
-[https://tasksmanager-production-1bab.up.railway.app/tasks](https://tasksmanager-production-1bab.up.railway.app/tasks)
+[https://tasksmanager-production-1bab.up.railway.app/tasks](https://tasksmanager-production-1bab.up.railway.app/health)
 
 ---
 
@@ -254,21 +311,7 @@ Backend URL:
 
 ---
 
-## ✅ Future Improvements
-
-* User authentication (JWT)
-* Task priority levels
-* Drag-and-drop task sorting
-* Dark mode
-* Pagination or infinite scroll
-
----
-
 ## 👨‍💻 Author
 
 **Lin Gui**
 GitHub: [https://github.com/AlynGui](https://github.com/AlynGui)
-
----
-
-If you find this project helpful, feel free to ⭐ star the repository!

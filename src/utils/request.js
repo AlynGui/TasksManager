@@ -1,4 +1,4 @@
-
+// Utility function to make API requests with error handling
 const request = async (url, options = {}) => {
     try {
         const res = await fetch(url, {

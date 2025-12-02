@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import useTasks from '../hooks/useTasks.jsx';
 import leftArrow from '../assets/leftArrow.svg';
 import rightArrow from '../assets/rightArrow.svg';
+import { getStatusColor, getStatusTranslation } from '../utils/common.jsx';
 
 // TaskList component to display tasks in a paginated grid
 export default function TaskList({ tasks }) {
@@ -44,24 +45,10 @@ export default function TaskList({ tasks }) {
         }
     };
 
-    // get status color classes
-    const getStatusColor = (status) => {
-        switch (status) {
-            case 'NOT_STARTED':
-                return 'bg-gray-100 text-gray-800 border-gray-300';
-            case 'IN_PROGRESS':
-                return 'bg-yellow-100 text-yellow-800 border-yellow-300';
-            case 'COMPLETED':
-                return 'bg-green-100 text-green-800 border-green-300';
-            default:
-                return 'bg-gray-100 text-gray-800 border-gray-300';
-        }
-    };
-
     return (
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg">
             {/* Header Section */}
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mb-8">
+            <div className="p-4">
                 <div className="flex justify-between items-center">
                     <div>
                         <h2 className="text-3xl font-bold text-slate-800 mb-2">Task Overview</h2>
@@ -77,7 +64,7 @@ export default function TaskList({ tasks }) {
             </div>
             {paginatedTasks && paginatedTasks.length > 0 ? (
                 <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">{paginatedTasks.map((task) => (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{paginatedTasks.map((task) => (
                         <div
                             key={task.id}
                             className="bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-200 hover:shadow-md group"
@@ -106,9 +93,7 @@ export default function TaskList({ tasks }) {
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm font-medium text-slate-500">Status</span>
                                         <span className={`px-3 py-1.5 rounded-full text-xs font-medium border ${getStatusColor(task.status)}`}>
-                                            {task.status === 'NOT_STARTED' ? 'To Do' :
-                                                task.status === 'IN_PROGRESS' ? 'In Progress' :
-                                                    'Done'}
+                                            {getStatusTranslation(task.status)}
                                         </span>
                                     </div>
 
@@ -143,7 +128,7 @@ export default function TaskList({ tasks }) {
 
                     {/* pagination controls */}
                     {totalPages > 1 && (
-                        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mt-8">
+                        <div className="mt-8">
                             <div className="flex justify-center items-center space-x-3">
                                 <button
                                     onClick={goToPreviousPage}

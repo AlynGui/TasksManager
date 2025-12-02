@@ -16,9 +16,9 @@ function App() {
     <Router>
       <AuthProvider>
         <TasksProvider>
-          <ToastContainer position="top-center" autoClose={3000} />
+          <ToastContainer position="top-center" autoClose={3000} pauseOnFocusLoss={false}/>
           <Routes>
-            {/* Protected Routes */}
+            {/* Protected Routes */} 
             <Route path="/" element={
               <ProtectedRoute>
                 <Home />

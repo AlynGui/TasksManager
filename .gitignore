@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+cookies.txt
+
+migrations
+
 .env.*
 .env
 

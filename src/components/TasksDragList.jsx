@@ -3,7 +3,9 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { useNavigate } from 'react-router-dom';
 import useTasks from '../hooks/useTasks.jsx';
 import bars from '../assets/bars.svg';
+import { getStatusColor, getStatusTranslation } from '../utils/common.jsx';
 
+// TasksDragList component for drag-and-drop task management
 export default function TasksDragList({ tasks }) {
     const navigate = useNavigate();
     const [taskColumns, setTaskColumns] = useState({
@@ -53,34 +55,6 @@ export default function TasksDragList({ tasks }) {
         });
         setTaskColumns(updatedColumns);
     }, [tasks]);
-
-    // Helper to get status color
-    const getStatusColor = (status) => {
-        switch (status) {
-            case 'NOT_STARTED':
-                return 'bg-gray-100 text-gray-800 border-gray-300';
-            case 'IN_PROGRESS':
-                return 'bg-yellow-100 text-yellow-800 border-yellow-300';
-            case 'COMPLETED':
-                return 'bg-green-100 text-green-800 border-green-300';
-            default:
-                return 'bg-gray-100 text-gray-800 border-gray-300';
-        }
-    };
-
-    // Helper to get status translation
-    const getStatusTranslation = (status) => {
-        switch (status) {
-            case 'NOT_STARTED':
-                return 'To Do';
-            case 'IN_PROGRESS':
-                return 'In Progress';
-            case 'COMPLETED':
-                return 'Done';
-            default:
-                return '';
-        }
-    };
 
     // Handle drag end event
     const handleDragEnd = (result) => {

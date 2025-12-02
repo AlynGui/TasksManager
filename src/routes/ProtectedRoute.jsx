@@ -1,6 +1,7 @@
 import useAuth from '../hooks/useAuth.jsx';
 import { Navigate } from 'react-router-dom';
 
+// ProtectedRoute component to guard routes that require authentication
 export default function ProtectedRoute({ children }) {
 
     const { user, loading, isInitialized } = useAuth();
